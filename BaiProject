@@ -1,1 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+//prototype
+void outputArray(int n,int m,int array[n][m]);
+void diagonal(int n,int array[n][n]);
+void convertStringToArray(int a[],char s[][100],int i);
+void convert1D_arrayTo2D_array(int n,int m,int array[n][m],int a[]);
+
+//main function
+int main(int argc, char const *argv[])
+{
+    FILE* inp;
+    inp = fopen("matrix.txt","r");		//filename of your data file
+    char s[100][50];			        //max word length 50
+    int i = 0;
+    while(1){
+        char r = (char)fgetc(inp);
+        int k = 0;
+            while(r!=',' && !feof(inp)){	//read till , or EOF
+                s[i][k++] = r;
+                r = (char)fgetc(inp);
+                }
+        s[i][k]=0;		            //make last character of string null
+        if(feof(inp)){		            //check again for EOF
+            break;
+        }
+        i++;
+    }
+// convert string array to 1_D array
+    int a[16];
+    convertStringToArray(a,s,i);
+//convert 1D array to 2D array
+int k=0; int n;int m;
+    printf("\nEnter the size of the 2D array\nRow:");
+    scanf("%d",&n);printf("\nColumn:");scanf("%d",&m);
+int array[n][m];
+    convert1D_arrayTo2D_array(n,m,array,a);
+    outputArray(n,m,array);
+//call the function to check diagonal matrix
+    checkDiagonal(n,array) ;
+    return 0;
+}
+
+void convertStringToArray(int a[],char s[][100],int i){
+    printf("the 1D integer array form from the file ");
+        for(int j = 0;j<=i;j++){
+        int d=atof(s[j]);
+        a[j]=d;printf("%3d",a[j]);
+        }
+}
+void convert1D_arrayTo2D_array(int n,int m,int array[n][m],int a[]){
+    int k=0;
+     for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            array[i][j]=a[k++];
+        }
+    }
+}
+void outputArray(int n,int m,int  array[n][m]){
+        for (int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                printf("%3d",array[i][j]);
+            }printf("\n");
+        }
+}
+void checkDiagonal(int n,int array[n][n]){
+    for(int i=0;i<n;i++){
+        for(int j=n-1;j>i;j--){
+            if(array[i][j]!=array[j][i]!=0){
+                printf("not symetric matriz");
+                return -1;
+                break;
+            }
+        }
+    }printf("this is symetrc matrix");
+}
 
