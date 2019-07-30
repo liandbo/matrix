@@ -1,0 +1,7 @@
+void mini7(int n,int array[n][n],b)
+{
+    int i,j;
+    for(i=1;i<=n;i++)
+        for(j=1;j<=n;j++)
+            array[i][j] += b;
+}
