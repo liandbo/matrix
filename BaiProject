@@ -3,6 +3,7 @@
 //prototype
 void outputArray(int n,int m,int array[n][m]);
 void diagonal(int n,int array[n][n]);
+void checkUpper(intn,int array[n][n]);
 void convertStringToArray(int a[],char s[][100],int i);
 void convert1D_arrayTo2D_array(int n,int m,int array[n][m],int a[]);
 
