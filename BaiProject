@@ -28,8 +28,6 @@ int a[16];
 int array[n][m];
     convert1D_arrayTo2D_array(n,m,array,a);
     outputArray(n,m,array);
-//call the function to check diagonal matrix
-    checkDiagonal(n,array);printf("\n----");
     checkUpper(n,array);
     return 0;
 }
