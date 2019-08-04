@@ -1,61 +1,90 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 //prototype
+int readFile(char name_File[20],char s[100][50]);
 void outputArray(int n,int m,int array[n][m]);
 void convertStringToArray(int a[],char s[100][50],int i);
 void convert1D_arrayTo2D_array(int n,int m,int array[n][m],int a[]);
-int readFile(char name_File[20],char s[100][50]);
-//main function
+void checkDiagonal(int n,int array[n][n]);
+
+struct matrix {
+  char namefile[10];
+  int row,collumn,element;
+  char s[100][50];
+  int a[20];
+  int arrey[100][100];
+};
+
+//main
 int main(int argc, char const *argv[])
 {
-  char name_file[20];
-      printf("\nENTER THE FILE :" );//enter file name
-      gets(name_file);
 
-  char s[100][50];
-  int k=0;int n;int m;
-    printf("\nENTER THE ROW OF 2D ARAY:" );scanf("%d",&n );
-    printf("\nENTER THE COLLUMN OF 2D ARAY:" );scanf("%d",&m );
-  int i=  readFile(name_file,s);printf("%d\n",i );
+    int max=2,a=0;
+    struct matrix M[2];
+      //M[0].namefile="arrayA.txt";
+      //M[1].namefile="arrayB.txt";
+    for(int i=0;i<max;i++){
+      printf("\nenter name file %d :",i+1 );
+        fflush(stdin);
+        gets(M[i].namefile);
 
-// convert string array to 1_D array
-int a[16];
-  convertStringToArray(a,s,i);
+      printf("input the row of file %d: ",i+1 );
+        scanf("%d",&M[i].row );
+      printf("input the collumn of file %d: ",i+1 );
+        scanf("%d",&M[i].collumn );
+      M[i].element=readFile(M[i].namefile,M[i].s);
+      printf("\n%d",M[i].element );
+      printf("\n" );
+      M[i].a[M[i].element];
+        convertStringToArray(M[i].a,M[i].s,M[i].element);
+        printf("\n" );
+      M[i].arrey[M[i].row][M[i].collumn];
+        convert1D_arrayTo2D_array(M[i].row,M[i].collumn,M[i].arrey,M[i].a);
+        outputArray(M[i].row,M[i].collumn,M[i].arrey);
+    }
+    printf("Do you want to check Diagonal the first matrix? (Yes:1, No:0)\n");
+    scanf("%d",&a);
+    if (a==1)
+        if (M[0].row != M[0].collumn)
+        {
+            printf("Not an equa matrx!");
+        }
+        else
+        {
+            checkDiagonal(M[0].row,M[0].arrey);
+        }
 
-  printf("\n" );
-//convert 1D array to 2D array
 
-int array[n][m];
-    convert1D_arrayTo2D_array(n,m,array,a);
-    outputArray(n,m,array);
-    checkUpper(n,array);
-    return 0;
 }
-// function
+
+//function
 int readFile(char name_File[20],char s[100][50]){
   FILE* inp;
   inp = fopen(name_File,"r");		//filename of your data file
   int nPtri=0;
+  printf("\nOpen file sucess" );
   while(1){
       char r = (char)fgetc(inp);
       int k = 0;
           while(r!=',' && !feof(inp)){	//read till , or EOF
               s[nPtri][k++] = r;
               r = (char)fgetc(inp);
-              }
+                       }
       s[nPtri][k]=0;		            //make last character of string null
       if(feof(inp)){		            //check again for EOF
           break;
       }
       nPtri++;
  }
+ fclose(inp);
+ return nPtri+1;
 }
-
 void convertStringToArray(int a[],char s[100][50],int i){
     printf("the 1D integer array form from the file ");
         for(int j = 0;j<i;j++){
         int d=atof(s[j]);
-        a[j]=d;printf("%2d",a[j]);
+        a[j]=d;printf("%3d",a[j]);
         }
 }
 void convert1D_arrayTo2D_array(int n,int m,int array[n][m],int a[]){
@@ -72,4 +101,15 @@ void outputArray(int n,int m,int  array[n][m]){
                 printf("%3d",array[i][j]);
             }printf("\n");
         }
+}
+void checkDiagonal(int n,int array[n][n]){
+    for(int i=0;i<n;i++){
+        for(int j=n-1;j>i;j--){
+            if(array[i][j]!=array[j][i]!=0){
+                printf("Not diagonal matrix");
+                return -1;
+                break;
+            }
+        }
+    }printf("This is a diagonal matrix.\n");
 }
