@@ -1,28 +1,14 @@
-/*Tui xem bai cua Thien thi no chua co setup ten rows hay columns ma de [n][n] 
-trong "void checkUpper(intn,int array[n][n])" nen tui ghi ra cho no ro rang*/
-//Khong biet ong co sua dc ko
-
-
-//Input cho matrix, tui ghi vay cho de hinh dung
-int matrix[10][10], i, j, row, col;    //matrix[10][10] tui setup de co gioi han cho matrix
-for(i=0;i<row;i++)
-   {
-     for(j=0;j<col;j++)
-      {scanf("%d",&mat[i][j]); }
-   }
-   
-   
-//Function cho lower triagonal matrix    
-   for(i=0;i<row;i++)
-   {
-    for(j=0;j<col;j++)
-     {
-      if(i<j)
-       {printf("0");}
-      else
-      {printf("%d",matrix[i][j]);}
-     }
-    printf("\n");
-   }
-getch();
+void checkLower(int r, int c, int array[i][j])
+{
+    for(i=0;i<r;i++)    // cho "i<r" va "j<c" thi matrix moi so voi hang va cot, neu tui viet
+       {     				//nhu cua Thien thi ko bit chinh sao cho hop ly
+		 for(j=0;j<c;j++)
+           { if (array[i][j] != 0)
+            {
+                printf("Not lower triagonal matrix");
+                return;
+                break;
+            }  
+		}
+    printf ("=>Lower triagonal matrix");        
 }
