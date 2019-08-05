@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //prototype
 int readFile(char name_File[20],char s[100][50]);
@@ -8,8 +9,9 @@ void convertStringToArray(int a[],char s[100][50],int i);
 void convert1D_arrayTo2D_array(int n,int m,int array[n][m],int a[]);
 void checkDiagonal(int n,int array[n][n]);
 void checkUpper(int n,int array[n][n]);
-void mini6(int n,int a[n][n],int b[n][n]);
-void WrFile(int n,int a[n][n]);
+void mini6(int n,int a[n][n],int b[n][n],char d[100]);
+void WrFile(int n,int a[n][n],char d[100]);
+void mini7(int n,int array[n][n],int c,char d[100]);
 struct matrix {
   char namefile[10];
   int row,collumn,element;
@@ -23,6 +25,7 @@ int main(int argc, char const *argv[])
 {
 
     int max=2,a=0;
+    char name[100];
     struct matrix M[2];
       //M[0].namefile="arrayA.txt";
       //M[1].namefile="arrayB.txt";
@@ -30,7 +33,6 @@ int main(int argc, char const *argv[])
       printf("\nenter name file %d :",i+1 );
         fflush(stdin);
         gets(M[i].namefile);
-
       printf("input the row of file %d: ",i+1 );
         scanf("%d",&M[i].row );
       printf("input the collumn of file %d: ",i+1 );
@@ -56,7 +58,6 @@ int main(int argc, char const *argv[])
         {
             checkDiagonal(M[0].row,M[0].arrey);
         }
-    a=0;
     printf ("\nDo you want to check a upper triagonal matrix the first matrix? (Yes:1, No:0)\n");
     scanf ("%d",&a);
     if (a==1)
@@ -68,7 +69,6 @@ int main(int argc, char const *argv[])
         {
             checkUpper(M[0].row, M[0].arrey);
         }
-    a=0;
     printf("\nDo you want to add two matrix together? (Yes:1, No:0)\n");
     scanf("%d",&a);
     if (a==1)
@@ -82,8 +82,23 @@ int main(int argc, char const *argv[])
         }
         else
         {
-            mini6(M[0].row,M[0].arrey,M[1].arrey);
+            printf("Enter file name to save: ");
+            scanf("%s",name);
+            mini6(M[0].row,M[0].arrey,M[1].arrey,name);
+
         }
+    printf("\nPerform the matrix scalar multiplication to the first matrix? (Yes:1, No:0)\n");
+    scanf("%d",&a);
+    if (a==1)
+    {
+        printf("Enter number: ");
+        scanf("%d",&a);
+        printf("Enter file name to save: ");
+        fflush(stdin);
+        gets(name);
+        mini7(M[0].row,M[0].arrey,a,name);
+    }
+
 }
 
 //function
@@ -109,10 +124,10 @@ int readFile(char name_File[20],char s[100][50]){
  return nPtri+1;
 }
 void convertStringToArray(int a[],char s[100][50],int i){
-    printf("the 1D integer array form from the file ");
+
         for(int j = 0;j<i;j++){
         int d=atof(s[j]);
-        a[j]=d;printf("%3d",a[j]);
+        a[j]=d;
         }
 }
 void convert1D_arrayTo2D_array(int n,int m,int array[n][m],int a[]){
@@ -133,7 +148,7 @@ void outputArray(int n,int m,int  array[n][m]){
 void checkDiagonal(int n,int array[n][n]){
     for(int i=0;i<n;i++){
         for(int j=n-1;j>i;j--){
-            if(array[i][j]!=array[j][i]!=0){
+            if(array[i][j]!=0||array[j][i]!=0){
                 printf("Not diagonal matrix\n");
                 return -1;
                 break;
@@ -144,39 +159,49 @@ void checkDiagonal(int n,int array[n][n]){
 void checkUpper(int n,int array[n][n])
 {
     int i,j;
-    for(i=2;i<=n;i++)
-        for(j=1;j<=(i-1);j++)
+    for(i=1;i<n;i++)
+        for(j=0;j<=(i-1);j++)
             if (array[i][j] != 0)
             {
                 printf("Not upper triagonal matrix\n");
                 return;
                 break;
             }
-    printf ("this is an upper triagonal matrix\n");
+    printf ("This is an upper triagonal matrix\n");
 }
-void mini6(int n,int a[n][n],int b[n][n])
+void mini6(int n,int a[n][n],int b[n][n],char d[100])
 {
-    int i,j,c[100][100];
+    int i,j,c[n][n];
     for(i=0;i<n;i++)
         for(j=0;j<n;j++)
             c[i][j]= a[i][j] + b[i][j];
-    WrFile(n,c);
+    printf("\n" );
+    outputArray(n,n,c);
+    WrFile(n,c,d);
 }
-void WrFile(int n,int a[n][n])
+void WrFile(int n,int a[n][n],char d[100])
 {
     int i,j;
     FILE* ip;
-    ip = fopen("save.txt","r");
+    ip = fopen(d,"w");
     for(i=0;i<n;i++)
     {
         for(j=0;j<n;j++)
         {
-            fprintf(ip,"%d",a[i][j]);
+            fprintf(ip,"%2d",a[i][j]);
             fprintf(ip,",");
         }
         fprintf(ip,"\n");
     }
     fclose(ip);
     printf("Done\n");
-
+}
+void mini7(int n,int array[n][n],int c,char d[100])
+{
+    int i,j,b[100][100];
+    for(i=0;i<n;i++)
+        for(j=0;j<n;j++)
+            b[i][j]= array[i][j] * c;
+    outputArray(n,n,b);
+    WrFile(n,b,d);
 }
