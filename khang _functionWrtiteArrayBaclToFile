@@ -1,0 +1,11 @@
+void writeBackToFile(char nameNewFile[15],int n,int m,int Mularray[n][m] )
+{
+  FILE*inp;
+  inp=fopen(nameNewFile,"w");
+  for(int i=0;i<n;i++){
+    for (int j=0;j<m;j++){
+      fprintf(inp, "%3d",Mularray[i][j] );
+    }fprintf(inp,"\n");
+  }
+  fclose(inp);
+}
