@@ -7,7 +7,7 @@ void outputArray(int n,int m,int array[n][m]);
 void convertStringToArray(int a[],char s[100][50],int i);
 void convert1D_arrayTo2D_array(int n,int m,int array[n][m],int a[]);
 void checkDiagonal(int n,int array[n][n]);
-
+void checkUpper(int n,int array[n][n]);
 struct matrix {
   char namefile[10];
   int row,collumn,element;
@@ -48,14 +48,24 @@ int main(int argc, char const *argv[])
     if (a==1)
         if (M[0].row != M[0].collumn)
         {
-            printf("Not an equa matrx!");
+            printf("Not an equa matrix!\n");
         }
         else
         {
             checkDiagonal(M[0].row,M[0].arrey);
         }
-
-
+    a=0;
+    printf ("\nDo you want to check a upper triagonal matrix the first matrix? (Yes:1, No:0)\n");
+    scanf ("%d",&a);
+    if (a==1)
+        if (M[0].row != M[0].collumn)
+        {
+            printf ("not square matrix\n");
+        }
+        else
+        {
+            checkUpper(M[0].row, M[0].arrey);
+        }
 }
 
 //function
@@ -112,4 +122,17 @@ void checkDiagonal(int n,int array[n][n]){
             }
         }
     }printf("This is a diagonal matrix.\n");
+}
+void checkUpper(int n,int array[n][n])
+{
+    int i,j;
+    for(i=2;i<=n;i++)
+        for(j=1;j<=(i-1);j++)
+            if (array[i][j] != 0)
+            {
+                printf("not upper triagonal matrix");
+                return;
+                break;
+            }
+    printf ("this is an upper triagonal matrix");
 }
