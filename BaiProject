@@ -8,6 +8,8 @@ void convertStringToArray(int a[],char s[100][50],int i);
 void convert1D_arrayTo2D_array(int n,int m,int array[n][m],int a[]);
 void checkDiagonal(int n,int array[n][n]);
 void checkUpper(int n,int array[n][n]);
+void mini6(int n,int a[n][n],int b[n][n]);
+void WrFile(int n,int a[n][n]);
 struct matrix {
   char namefile[10];
   int row,collumn,element;
@@ -48,7 +50,7 @@ int main(int argc, char const *argv[])
     if (a==1)
         if (M[0].row != M[0].collumn)
         {
-            printf("Not an equa matrix!\n");
+            printf("Not a square matrix!\n");
         }
         else
         {
@@ -66,6 +68,22 @@ int main(int argc, char const *argv[])
         {
             checkUpper(M[0].row, M[0].arrey);
         }
+    a=0;
+    printf("\nDo you want to add two matrix together? (Yes:1, No:0)\n");
+    scanf("%d",&a);
+    if (a==1)
+        if ((M[0].row != M[0].collumn) || (M[1].row != M[1].collumn))
+        {
+            printf("Not square matrix!");
+        }
+        else if ((M[0].row != M[1].row) || (M[0].collumn != M[1].collumn))
+        {
+            printf("Two matrix not equal.");
+        }
+        else
+        {
+            mini6(M[0].row,M[0].arrey,M[1].arrey);
+        }
 }
 
 //function
@@ -73,7 +91,7 @@ int readFile(char name_File[20],char s[100][50]){
   FILE* inp;
   inp = fopen(name_File,"r");		//filename of your data file
   int nPtri=0;
-  printf("\nOpen file sucess" );
+  printf("\nOpen file success" );
   while(1){
       char r = (char)fgetc(inp);
       int k = 0;
@@ -116,7 +134,7 @@ void checkDiagonal(int n,int array[n][n]){
     for(int i=0;i<n;i++){
         for(int j=n-1;j>i;j--){
             if(array[i][j]!=array[j][i]!=0){
-                printf("Not diagonal matrix");
+                printf("Not diagonal matrix\n");
                 return -1;
                 break;
             }
@@ -130,9 +148,35 @@ void checkUpper(int n,int array[n][n])
         for(j=1;j<=(i-1);j++)
             if (array[i][j] != 0)
             {
-                printf("not upper triagonal matrix");
+                printf("Not upper triagonal matrix\n");
                 return;
                 break;
             }
-    printf ("this is an upper triagonal matrix");
+    printf ("this is an upper triagonal matrix\n");
+}
+void mini6(int n,int a[n][n],int b[n][n])
+{
+    int i,j,c[100][100];
+    for(i=0;i<n;i++)
+        for(j=0;j<n;j++)
+            c[i][j]= a[i][j] + b[i][j];
+    WrFile(n,c);
+}
+void WrFile(int n,int a[n][n])
+{
+    int i,j;
+    FILE* ip;
+    ip = fopen("save.txt","r");
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            fprintf(ip,"%d",a[i][j]);
+            fprintf(ip,",");
+        }
+        fprintf(ip,"\n");
+    }
+    fclose(ip);
+    printf("Done\n");
+
 }
