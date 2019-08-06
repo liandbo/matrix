@@ -198,7 +198,7 @@ void WrFile(int n,int a[n][n],char d[100])
 }
 void mini7(int n,int array[n][n],int c,char d[100])
 {
-    int i,j,b[100][100];
+    int i,j,b[n][n];
     for(i=0;i<n;i++)
         for(j=0;j<n;j++)
             b[i][j]= array[i][j] * c;
