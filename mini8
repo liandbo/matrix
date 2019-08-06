@@ -1,0 +1,8 @@
+void multipleArray(int n1,int m1,int a[n1][m1],int n2,int m2,int b[n2][m2],int Mularray[n1][m2])
+{
+  for(int i=0;i<n1;i++){
+    for(int j=0;j<m2;j++){
+      Mularray[i][j]=a[i][0]*b[0][j] + a[i][1]*b[1][j] + a[i][2]*b[2][j];
+    }
+  }
+}
