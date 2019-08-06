@@ -12,6 +12,7 @@ void checkUpper(int n,int array[n][n]);
 void mini6(int n,int a[n][n],int b[n][n],char d[100]);
 void WrFile(int n,int a[n][n],char d[100]);
 void mini7(int n,int array[n][n],int c,char d[100]);
+void checkLower(int n, int array[n][n]);
 struct matrix {
   char namefile[10];
   int row,collumn,element;
@@ -58,7 +59,7 @@ int main(int argc, char const *argv[])
         {
             checkDiagonal(M[0].row,M[0].arrey);
         }
-    printf ("\nDo you want to check a upper triagonal matrix the first matrix? (Yes:1, No:0)\n");
+    printf ("\nDo you want to check upper triagonal the first matrix? (Yes:1, No:0)\n");
     scanf ("%d",&a);
     if (a==1)
         if (M[0].row != M[0].collumn)
@@ -68,6 +69,17 @@ int main(int argc, char const *argv[])
         else
         {
             checkUpper(M[0].row, M[0].arrey);
+        }
+    printf ("\nDo you want to check lower triagonal the first matrix? (Yes:1, No:0)\n");
+    scanf("%d",&a);
+    if (a==1)
+        if (M[0].row != M[0].collumn)
+        {
+            printf("Not square matrix.\n");
+        }
+        else
+        {
+            checkLower(M[0].row,M[0].arrey);
         }
     printf("\nDo you want to add two matrix together? (Yes:1, No:0)\n");
     scanf("%d",&a);
@@ -98,6 +110,7 @@ int main(int argc, char const *argv[])
         gets(name);
         mini7(M[0].row,M[0].arrey,a,name);
     }
+    return 0;
 
 }
 
@@ -204,4 +217,23 @@ void mini7(int n,int array[n][n],int c,char d[100])
             b[i][j]= array[i][j] * c;
     outputArray(n,n,b);
     WrFile(n,b,d);
+}
+void checkLower(int n, int array[n][n])
+{
+    int i,j;
+    for(i=2;i<n;i++)
+       {
+		 for(j=0;j<i;j++)
+           { if (array[i][j] != 0)
+            {
+                printf("Not lower triagonal matrix\n");
+                //return;
+                break;
+            }
+			else
+			{
+     }
+			}
+		}
+    printf ("=>Lower triagonal matrix\n");
 }
