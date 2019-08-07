@@ -25,7 +25,7 @@ struct matrix {
 };
 
 //main
-int main(int argc, char const *argv[])
+int main()
 {
 
     int max=2,a=0;
