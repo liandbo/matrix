@@ -310,5 +310,4 @@ if(check==1){
 else
 printf("Symmetric\n");
 }
-=======
->>>>>>> master
+
