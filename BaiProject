@@ -13,6 +13,9 @@ void mini6(int n,int a[n][n],int b[n][n],char d[100]);
 void WrFile(int n,int a[n][n],char d[100]);
 void mini7(int n,int array[n][n],int c,char d[100]);
 void checkLower(int n, int array[n][n]);
+void transpose(int row,int transpose_matrix[row][row],int matrix[row][row]);
+void checkantisymmetric(int row,int transpose_matrix[row][row],int matrix[row][row]);
+void checksymmetric (int row,int transpose_matrix[row][row],int matrix[row][row]);
 struct matrix {
   char namefile[10];
   int row,collumn,element;
@@ -263,7 +266,7 @@ void checkLower(int n, int array[n][n])
 		}
     printf ("=>Lower triagonal matrix\n");
 }
-<<<<<<< HEAD
+
 //mini project 4,5
 void transpose(int row,int transpose_matrix[row][row],int matrix[row][row])
 {
