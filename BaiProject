@@ -111,6 +111,7 @@ int main(int argc, char const *argv[])
         gets(name);
         mini7(M[0].row,M[0].arrey,a,name);
     }
+    return 0;
 
 printf("\nDo you want to check anti-symmetric the first matrix? (Yes:1, No:0)\n");
     scanf("%d",&a);
@@ -262,6 +263,7 @@ void checkLower(int n, int array[n][n])
 		}
     printf ("=>Lower triagonal matrix\n");
 }
+<<<<<<< HEAD
 //mini project 4,5
 void transpose(int row,int transpose_matrix[row][row],int matrix[row][row])
 {
@@ -305,3 +307,5 @@ if(check==1){
 else
 printf("Symmetric\n");
 }
+=======
+>>>>>>> master
