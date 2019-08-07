@@ -12,6 +12,7 @@ void checkUpper(int n,int array[n][n]);
 void mini6(int n,int a[n][n],int b[n][n],char d[100]);
 void WrFile(int n,int a[n][n],char d[100]);
 void mini7(int n,int array[n][n],int c,char d[100]);
+void checkLower(int n, int array[n][n]);
 struct matrix {
   char namefile[10];
   int row,collumn,element;
@@ -27,6 +28,7 @@ int main(int argc, char const *argv[])
     int max=2,a=0;
     char name[100];
     struct matrix M[2];
+    int transpose_matrix[100];
       //M[0].namefile="arrayA.txt";
       //M[1].namefile="arrayB.txt";
     for(int i=0;i<max;i++){
@@ -58,7 +60,7 @@ int main(int argc, char const *argv[])
         {
             checkDiagonal(M[0].row,M[0].arrey);
         }
-    printf ("\nDo you want to check a upper triagonal matrix the first matrix? (Yes:1, No:0)\n");
+    printf ("\nDo you want to check upper triagonal the first matrix? (Yes:1, No:0)\n");
     scanf ("%d",&a);
     if (a==1)
         if (M[0].row != M[0].collumn)
@@ -68,6 +70,17 @@ int main(int argc, char const *argv[])
         else
         {
             checkUpper(M[0].row, M[0].arrey);
+        }
+    printf ("\nDo you want to check lower triagonal the first matrix? (Yes:1, No:0)\n");
+    scanf("%d",&a);
+    if (a==1)
+        if (M[0].row != M[0].collumn)
+        {
+            printf("Not square matrix.\n");
+        }
+        else
+        {
+            checkLower(M[0].row,M[0].arrey);
         }
     printf("\nDo you want to add two matrix together? (Yes:1, No:0)\n");
     scanf("%d",&a);
@@ -99,6 +112,31 @@ int main(int argc, char const *argv[])
         mini7(M[0].row,M[0].arrey,a,name);
     }
 
+printf("\nDo you want to check anti-symmetric the first matrix? (Yes:1, No:0)\n");
+    scanf("%d",&a);
+    if (a==1)
+        if (M[0].row != M[0].collumn)
+        {
+            printf("Not a square matrix!\n");
+        }
+        else
+        {
+            transpose(M[0].row,transpose_matrix,M[0].arrey);
+            checkantisymmetric(M[0].row,transpose_matrix,M[0].arrey);
+        }
+    printf("\nDo you want to check symmetric the first matrix? (Yes:1, No:0)\n");
+    scanf("%d",&a);
+    if (a==1)
+        if (M[0].row != M[0].collumn)
+        {
+            printf("Not a square matrix!\n");
+        }
+        else
+        {
+            transpose(M[0].row,transpose_matrix,M[0].arrey);
+            checksymmetric(M[0].row,transpose_matrix,M[0].arrey);
+        }
+    return 0;
 }
 
 //function
@@ -204,4 +242,66 @@ void mini7(int n,int array[n][n],int c,char d[100])
             b[i][j]= array[i][j] * c;
     outputArray(n,n,b);
     WrFile(n,b,d);
+}
+void checkLower(int n, int array[n][n])
+{
+    int i,j;
+    for(i=2;i<n;i++)
+       {
+		 for(j=0;j<i;j++)
+           { if (array[i][j] != 0)
+            {
+                printf("Not lower triagonal matrix\n");
+                //return;
+                break;
+            }
+			else
+			{
+     }
+			}
+		}
+    printf ("=>Lower triagonal matrix\n");
+}
+//mini project 4,5
+void transpose(int row,int transpose_matrix[row][row],int matrix[row][row])
+{
+   for (int i = 0; i < row; i++)
+      for (int j = 0; j < row; j++)
+         transpose_matrix[j][i] = matrix[i][j];
+}
+
+// Utility function to check anti-symmetric
+// matrix condition
+void checkantisymmetric(int row,int transpose_matrix[row][row],int matrix[row][row])
+{
+int check=0;
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < row; j++)
+            if (matrix[i][j] != -transpose_matrix[i][j]) {
+                check=1;
+				break; }}
+    if(check==1){
+    	printf("Not anti-symmetric\n");
+	}
+	else
+	printf("Anti symmetric\n");
+
+
+}
+// Utility function to check symmetric
+// matrix condition
+void checksymmetric (int row,int transpose_matrix[row][row],int matrix[row][row])
+{
+int check=0;
+    for (int i = 0; i < row; i++)
+        for (int j = 0; j < row; j++){
+            if (matrix[i][j] != transpose_matrix[i][j]) {
+            check=1;
+            break;}
+}
+if(check==1){
+	printf("Not symmetric\n");
+}
+else
+printf("Symmetric\n");
 }
