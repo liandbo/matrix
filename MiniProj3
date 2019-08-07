@@ -1,37 +1,15 @@
-// 1/ Ver1
-void checkLower(int r, int c, int array[i][j])
-{
-    for(i=0;i<r;i++)   
-       {     				
-		 for(j=0;j<c;j++)
-           { if (array[i][j] != 0)
-            {
-                printf("Not lower triagonal matrix");
-                return;
-                break;
-            }  
-		}
-    printf ("=>Lower triagonal matrix");        
-}
-
-
-// 2/Ver2
 void checkLower(int n, int array[n][n])
 {
-    for(i=2;i<n;i++)   
-       {     				
-		 for(j=0;j<i;j++)
+    int i,j;
+    for(i=0;i<n;i++)
+       {
+		 for(j=n-1;j>i;j--)
            { if (array[i][j] != 0)
             {
-                printf("Not lower triagonal matrix");
-                //return;
-                break;
-            } 
-			else 
-			{
-    printf ("=>Lower triagonal matrix"); }       
-			}
-		}
+                printf("Not lower triagonal matrix\n");
+                return;
+            }
+        }
+    }
+    printf ("Lower triagonal matrix\n");
 }
-
-
